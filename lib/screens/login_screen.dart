@@ -1,6 +1,7 @@
-import 'package:latest/screens/bottom_bar.dart';
+import 'package:dhwani/screens/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../controller/login_controller.dart';
 import 'home.dart';
