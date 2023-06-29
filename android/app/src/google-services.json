@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "761014794933",
+    "project_id": "dhwani-38f5d",
+    "storage_bucket": "dhwani-38f5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761014794933:android:e9f36416a29511a86d9cfc",
+        "android_client_info": {
+          "package_name": "com.example.dhwani"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761014794933-mpshtlruumop47u2afs7s1drmidsl9tk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dhwani",
+            "certificate_hash": "52702b05e7e4d1ef3b25a74f5f28c70900e48315"
+          }
+        },
+        {
+          "client_id": "761014794933-uno18b2lvhr72jr0oqdt178ck8spge5l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPEbpWwbpDncdXaZzCkyIailnuIeXpgFg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761014794933-uno18b2lvhr72jr0oqdt178ck8spge5l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

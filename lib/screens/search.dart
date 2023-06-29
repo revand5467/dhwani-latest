@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:latest/widgets/tile_widget.dart';
+import 'package:dhwani/widgets/tile_widget.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
@@ -10,7 +10,12 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:text_to_speech/text_to_speech.dart';
 import '../models/tile_model.dart';
-
+import '../controller/bottom_bar.dart';
+import 'package:dhwani/screens/bottom_bar.dart';
+import 'package:dhwani/screens/speech_to_text.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
+final Bottom controller = Get.put(Bottom());
 TextToSpeech tts = TextToSpeech();
 
 FlutterTts ftts = FlutterTts();
@@ -153,7 +158,69 @@ class _SearchState extends State<Search> {
                       ),
                     )),
                   ),
+                ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                  color: Colors.black.withOpacity(.1),
                 )
+              ],
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
+                child: GNav(
+                  rippleColor: Colors.grey[300]!,
+                  hoverColor: Colors.grey[100]!,
+                  gap: 8,
+                  activeColor: Colors.black,
+                  iconSize: 24,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  duration: Duration(milliseconds: 400),
+                  tabBackgroundColor: Colors.grey[100]!,
+                  color: Colors.black,
+                  tabs: [
+                    GButton(
+                      icon: LineIcons.home,
+                      text: 'Home',
+                      onPressed: () {
+                        Get.to(Example());
+                      },
+                    ),
+                    GButton(
+                      icon: LineIcons.book,
+                      text: 'Likes',
+                    ),
+                    GButton(
+                      onPressed: () {
+                        Get.to(Search());
+                      },
+                      icon: LineIcons.search,
+                      text: 'Search',
+                    ),
+                    GButton(
+                      icon: LineIcons.microphone,
+                      text: 'Speak',
+                      onPressed: () {
+                        Get.to(Speech());
+                      },
+                    ),
+                  ],
+                  selectedIndex: controller.selectedIndex,
+                  onTabChange: (index) {
+                    setState(() {
+                      //_selectedIndex = index;
+                      controller.updateIndex(index);
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
           //            GridView.count(
           //       crossAxisCount: 2,
           //       // Future ind = demo.where((element) {
@@ -165,7 +232,6 @@ class _SearchState extends State<Search> {
           //       }
           //       ),
           //  )
-          ,
         ));
   }
 }

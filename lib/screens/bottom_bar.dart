@@ -1,22 +1,24 @@
-//
-import 'package:latest/screens/search.dart';
-import 'package:latest/screens/speech_to_text.dart';
+import 'package:dhwani/screens/search.dart';
+import 'package:dhwani/screens/speech_to_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 
 import '../widgets/tile_widget.dart';
+import '../controller/bottom_bar.dart';
 
 class Example extends StatefulWidget {
   @override
   _ExampleState createState() => _ExampleState();
 }
 
+final Bottom controller = Get.put(Bottom());
+
 class _ExampleState extends State<Example> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
+  TextStyle(fontSize: 30, fontWeight: FontWeight.w600);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Home',
@@ -36,19 +38,75 @@ class _ExampleState extends State<Example> {
     ),
   ];
 
+  bool _isOn = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        elevation: 20,
-        title: const Text('Home Page'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          'QUICK ACCESS',
+          style: TextStyle(
+            color: Colors.blue,
+          ),
+        ),
       ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(4, (index) {
-          return tileWidget(index);
-        }),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text(
+                  'MALAYALAM',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 10.0),
+                Ink(
+                  height: 26.0,
+                  width: 40.0,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25.0),
+                    color: _isOn ? Colors.green : Colors.red,
+                  ),
+                  child: InkWell(
+                    onTap: () {
+                      setState(() {
+                        _isOn = !_isOn;
+                      });
+                    },
+                    borderRadius: BorderRadius.circular(25.0),
+                    child: Center(
+                      child: Text(
+                        _isOn ? 'ON' : 'OFF',
+                        style: const TextStyle(
+                          fontSize: 13.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: GridView.count(
+              crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2,
+              children: List.generate(8, (index) {
+                return tileWidget(index, _isOn);
+              }),
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -69,8 +127,8 @@ class _ExampleState extends State<Example> {
               gap: 8,
               activeColor: Colors.black,
               iconSize: 24,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              duration: Duration(milliseconds: 400),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              duration: const Duration(milliseconds: 400),
               tabBackgroundColor: Colors.grey[100]!,
               color: Colors.black,
               tabs: [
@@ -81,29 +139,30 @@ class _ExampleState extends State<Example> {
                     Get.to(Example());
                   },
                 ),
-                GButton(
+                const GButton(
                   icon: LineIcons.book,
                   text: 'Likes',
                 ),
                 GButton(
                   onPressed: () {
-                    Get.to(Search());
+                    Get.to(const Search());
                   },
                   icon: LineIcons.search,
                   text: 'Search',
                 ),
                 GButton(
                   icon: LineIcons.microphone,
-                  text: 'Voice Assistant',
+                  text: 'Speak',
                   onPressed: () {
                     Get.to(Speech());
                   },
                 ),
               ],
-              selectedIndex: _selectedIndex,
+              selectedIndex: controller.selectedIndex,
               onTabChange: (index) {
                 setState(() {
-                  _selectedIndex = index;
+                  //_selectedIndex = index;
+                  controller.updateIndex(index);
                 });
               },
             ),
